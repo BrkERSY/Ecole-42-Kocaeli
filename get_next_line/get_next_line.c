@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bersoy <bersoy@student.42.tr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 15:32:44 by bersoy            #+#    #+#             */
-/*   Updated: 2022/03/03 16:26:26 by bersoy           ###   ########.fr       */
+/*   Created: 2022/06/14 16:32:00 by bersoy            #+#    #+#             */
+/*   Updated: 2022/06/14 16:32:01 by bersoy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../Includes/get_next_line.h"
 
 char	*get_line(char *src, int fd)
 {
@@ -24,7 +24,7 @@ char	*get_line(char *src, int fd)
 		return (NULL);
 	}
 	size = 1;
-	while (!ft_strchr(src, '\n') && size != 0)
+	while (!ft_strchr1(src, '\n') && size != 0)
 	{
 		size = read(fd, buffer, BUFFER_SIZE);
 		if (size == -1)
@@ -33,7 +33,7 @@ char	*get_line(char *src, int fd)
 			return (NULL);
 		}
 		buffer[size] = '\0';
-		src = ft_strjoin(src, buffer);
+		src = ft_strjoin1(src, buffer);
 	}
 	free(buffer);
 	return (src);

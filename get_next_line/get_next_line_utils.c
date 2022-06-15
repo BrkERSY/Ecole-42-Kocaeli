@@ -5,40 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bersoy <bersoy@student.42.tr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 15:32:51 by bersoy            #+#    #+#             */
-/*   Updated: 2022/03/03 16:16:38 by bersoy           ###   ########.fr       */
+/*   Created: 2022/06/14 16:31:54 by bersoy            #+#    #+#             */
+/*   Updated: 2022/06/14 16:31:56 by bersoy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../Includes/get_next_line.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin1(char *s1, char *s2)
 {
 	size_t	i;
-	size_t	end_s1;
-	char	*string;
+	size_t	j;
+	char	*str;
 
+	i = 0;
+	j = 0;
 	if (s1 == NULL)
 	{
 		s1 = (char *)malloc(sizeof(char) * 1);
 		s1[0] = '\0';
 	}
-	string = malloc(((ft_strlen(s1)) + (ft_strlen(s2)) + 1));
-	if (string == NULL)
+	str = (char *)malloc(sizeof(char) * (ft_strlen1(s1) + ft_strlen1(s2) + 1));
+	if (str == NULL)
 		return (NULL);
-	i = -1;
-	while (s1[++i] != '\0')
-		string[i] = s1[i];
-	end_s1 = i;
-	i = -1;
-	while (s2[++i] != '\0')
-		string[end_s1 + i] = s2[i];
-	string[end_s1 + i] = '\0';
+	while (s1[j] != '\0')
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2[j] != '\0')
+		str[i++] = s2[j++];
+	str[i] = '\0';
 	free(s1);
-	return (string);
+	return (str);
 }
 
-size_t	ft_strlen(char *s)
+size_t	ft_strlen1(char *s)
 {
 	size_t	i;
 
@@ -48,20 +48,22 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char	*ft_strchr(char *src, int c)
+char	*ft_strchr1(char *src, int c)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	if (!src)
-		return (NULL);
-	while (src[i] != '\0' || c == '\0')
+	if (src == NULL)
+		return (0);
+	if (c == '\0')
+		return ((char *)&src[ft_strlen1(src)]);
+	while (src[i] != '\0')
 	{
-		if (src[i] == (char) c)
-			return ((char *)src + i);
+		if (src[i] == (char)c)
+			return ((char *)&src[i]);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
 char	*ft_read_line(char *src)
@@ -103,10 +105,10 @@ char	*ft_save(char *src)
 		free(src);
 		return (0);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_strlen(src) - i + 1));
+	str = (char *)malloc(sizeof(char) * (ft_strlen1(src) - i + 1));
 	if (str == NULL)
 		return (NULL);
-	i += 1;
+	i = i + 1;
 	j = 0;
 	while (src[i] != '\0')
 		str[j++] = src[i++];
